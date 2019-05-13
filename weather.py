@@ -1,12 +1,12 @@
 import pyowm
 
 # https://api.openweathermap.org/
-# API-key: cc1224608dac8b5e9b3210ba76c2067f
+# API-key: 
 
 
 class Weather(object):
     def __init__(self):
-        owm = pyowm.OWM('cc1224608dac8b5e9b3210ba76c2067f', version="2.5")  # You MUST provide a valid API key
+        owm = pyowm.OWM('YOUR API KEY', version="2.5")  # You MUST provide a valid API key
         self.reg = owm.city_id_registry()
         id = self.reg.ids_for('Zürich')
         observation = owm.weather_at_place('Zurich,CH')
