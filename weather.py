@@ -1,3 +1,5 @@
+import Unicorn as uni
+
 import pyowm
 
 # https://api.openweathermap.org/
@@ -6,7 +8,7 @@ import pyowm
 
 class Weather(object):
     def __init__(self):
-        owm = pyowm.OWM('YOUR API KEY', version="2.5")  # You MUST provide a valid API key
+        owm = pyowm.OWM('cc1224608dac8b5e9b3210ba76c2067f', version="2.5")  # You MUST provide a valid API key
         self.reg = owm.city_id_registry()
         id = self.reg.ids_for('Zürich')
         observation = owm.weather_at_place('Zurich,CH')
@@ -22,34 +24,38 @@ class Weather(object):
         if rain != {}:
             state = "Today, there's gonna be some rain"
             return state
+            uni.loop('rain')
 
     def __wind(self):
         wind = self.w.get_wind()
         wind_speed = wind["speed"]
-        if wind["deg"] >= 22.5 and wind["deg"] < 77.5:
-            state = "Wind is comming from Northeast with a Speed from {}".format(wind_speed)
-            return state
-        elif wind["deg"] >=77.5 and wind["deg"] < 112.5:
-            state = "Wind is comming from East with a Speed from {}".format(wind_speed)
-            return state
-        elif wind["deg"] >=112.5 and wind["deg"] < 157.5:
-            state = "Wind is comming from Southeast with a Speed from {}".format(wind_speed)
-            return state
-        elif wind["deg"] >=157.5 and wind["deg"] < 202.5:
-            state = "Wind is comming from South with a Speed from {}".format(wind_speed)
-            return state
-        elif wind["deg"] >=202.5 and wind["deg"] < 247.5:
-            state = "Wind is comming from Southwest with a Speed from {}".format(wind_speed)
-            return state
-        elif wind["deg"] >=247.5 and wind["deg"] < 292.5:
-            state = "Wind is comming from West with a Speed from {}".format(wind_speed)
-            return state
-        elif wind["deg"] >=292.5 and wind["deg"] < 337.5:
-            state = "Wind is comming from Northwest with a Speed from {}".format(wind_speed)
-            return state
+        if wind_speed > 1:
+            if wind['deg'] >= 22.5 and wind['deg'] < 77.5:
+                state = "Wind is comming from Northeast with a Speed from {}".format(wind_speed)
+                return state
+            elif wind["deg"] >=77.5 and wind["deg"] < 112.5:
+                state = "Wind is comming from East with a Speed from {}".format(wind_speed)
+                return state
+            elif wind["deg"] >=112.5 and wind["deg"] < 157.5:
+                state = "Wind is comming from Southeast with a Speed from {}".format(wind_speed)
+                return state
+            elif wind["deg"] >=157.5 and wind["deg"] < 202.5:
+                state = "Wind is comming from South with a Speed from {}".format(wind_speed)
+                return state
+            elif wind["deg"] >=202.5 and wind["deg"] < 247.5:
+                state = "Wind is comming from Southwest with a Speed from {}".format(wind_speed)
+                return state
+            elif wind["deg"] >=247.5 and wind["deg"] < 292.5:
+                state = "Wind is comming from West with a Speed from {}".format(wind_speed)
+                return state
+            elif wind["deg"] >=292.5 and wind["deg"] < 337.5:
+                state = "Wind is comming from Northwest with a Speed from {}".format(wind_speed)
+                return state
+            else:
+                state = "Wind is comming from North with a Speed from {}".format(wind_speed)
+                return state
         else:
-            state = "Wind is comming from North with a Speed from {}".format(wind_speed)
-            return state
+            print("no wind outside")
 
     def __humidity(self):
         humidity = self.w.get_humidity()
